@@ -91,6 +91,7 @@ if(verify){
     }, 2000);
 }
   }catch(error){
+    toast.error(response.response.data.message)
 
   }}
 
