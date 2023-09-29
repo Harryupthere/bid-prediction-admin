@@ -35,7 +35,7 @@ console.log(res)
 if (res.response) {
 
 } else {
-  setRate(res.data)
+  setRate(res.data.rate)
 
 }
   }
