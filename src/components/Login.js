@@ -25,9 +25,6 @@ function Login() {
   }
 
   const verification=()=>{
-
-  
-
     let emailError='';
     let passwordError='';
     if(form.email.length<=0){
@@ -69,31 +66,31 @@ if(verify){
     data
   );
 
-console.log(response,"response")
+
   if(response.status==200){
     toast.success(response.data.message)
     localStorage.setItem('token',response.data.token);
     localStorage.setItem('userId',response.data.userId);
    localStorage.setItem('email',response.data.email);
    localStorage.setItem('role',response.data.role);
-  localStorage.setItem('ADMIN',true);
     
     setTimeout(() => {
      window.location.href = `${config.baseUrl}Dashboard/home`
   }, 2000);
   }else{
-    
     toast.error(response.response.data.message)
 
   }
 
 
 
+  localStorage.setItem('ADMIN',true);
       
-     
+      setTimeout(() => {
+        window.location.href = `${config.baseUrl}Dashboard/home`
+    }, 2000);
 }
   }catch(error){
-    console.log(error.response.data.message)
     toast.error(error.response.data.message)
 
   }}

@@ -7,6 +7,7 @@ import { MdRealEstateAgent } from "react-icons/md";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import config from "../../config"
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function Dashboard() {
   var x = localStorage.getItem("token");
@@ -36,9 +37,9 @@ function Dashboard() {
         >
           <div>
             {open === false ? (
-              <MenuIcon className="text-white  " />
+             <CloseIcon className="text-white  " />         
             ) : (
-              <CloseIcon className="text-white  " />
+              <MenuIcon className="text-white  " />
             )}
           </div>
         </div>
@@ -57,18 +58,20 @@ function Dashboard() {
           </Link>
           <Link to="/dashboard/rate">
             <div className="flex justify-start items-center p-4  w-full nevs ">
-              <HomeIcon className="text-white  cursor-pointer" />
+              <AttachMoneyIcon className="text-white  cursor-pointer" />
               <h1
                 className={`text-white  mx-4 font-semibold duration-300 ${
                   open === false ? "flex " : "hidden"
                 }`}
               >
-                Rate
+                Return
               </h1>
             </div>
           </Link>
 
-          <Link to="//logout">
+
+
+          <Link to="/logout">
             <div className="absolute bottom-10 w-full nevs">
               <div className="flex justify-start  items-center p-4 text-white   " onClick={e=>{logOut(e)}}>
                 <BiLogOut className="text-2xl" />
@@ -148,6 +151,16 @@ function Dashboard() {
                       </h1>
                     </div>
                   </Link>
+                  <Link to="/dashboard/rate"  onClick={() => setToggle(!toggle)}>
+            <div className="flex justify-start items-center p-4  w-full nevs ">
+              <AttachMoneyIcon className="text-white  cursor-pointer" />
+              <h1
+                className="text-white  mx-4 font-semibold duration-300 "
+              >
+                Return
+              </h1>
+            </div>
+          </Link>
   
                  
         

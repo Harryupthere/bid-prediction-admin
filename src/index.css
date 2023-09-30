@@ -16,6 +16,7 @@
 } */
 body {
   background-color: #0b0b29; 
+  overflow-y: clip;
 }
 
 .nevs:hover {
@@ -52,4 +53,8 @@ th {
 
 .active {
   background-color: rgb(64, 42, 184);
+}
+
+button, select,input{
+  outline: none;
 }

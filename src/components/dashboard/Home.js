@@ -8,12 +8,11 @@ import Swal from 'sweetalert2';
 import CopyToClipboard from 'react-copy-to-clipboard'
 function Home() {
   var x = localStorage.getItem("token");
-    if (x == null || x == undefined) {
-      window.location.href = `${config.baseUrl}`
-    }
-
+  if (x == null || x == undefined) {
+    window.location.href = `${config.baseUrl}`
+  }
   const [allRequest, setAllRequest] = useState([]);
-  const [copy,setCopy] =useState(false)
+
   useEffect(() => {
     getAllRequest()
 
@@ -33,7 +32,7 @@ function Home() {
     };
 
     let res = await axios(config1)
-console.log(res)
+
     if (res.response) {
 
     } else {
@@ -42,11 +41,11 @@ console.log(res)
     }
   }
 
-  const submitRequest=async(transStatus,item)=>{
+  const submitRequest = async (transStatus, item) => {
     //e.preventDefault()
-    try{
-   
-      let data={"amount":item.amount,"walletAddress":item.wallet , "email":item.email,"transStatus":transStatus,"requestId":item._id}
+    try {
+
+      let data = { "amount": item.amount, "walletAddress": item.wallet, "email": item.email, "transStatus": transStatus, "requestId": item._id }
 
       const config1 = {
         method: 'post', // HTTP method (PUT in this case)
@@ -54,8 +53,8 @@ console.log(res)
 
         data: data, // The data you want to send in the request body
       };
-       
-    let res=  await axios(config1)
+
+      let res = await axios(config1)
       // .then(response => {
       //   // Handle the success response here.
       //   toast.success( response.data.message);
@@ -65,16 +64,16 @@ console.log(res)
       //   toast.error(error);
       // });
       console.log(res)
-    if(res.response){
-      toast.error(res.response.data.message);
-    }else{
-      toast.success( res.data);
-    }
-    }catch(error){
-console.log(error)
+      if (res.response) {
+        toast.error(res.response.data.message);
+      } else {
+        toast.success(res.data);
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
-  const showPopup=(e,transStatus,item)=>{
+  const showPopup = (e, transStatus, item) => {
     e.preventDefault()
 
     Swal.fire({
@@ -86,21 +85,13 @@ console.log(error)
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        submitRequest(transStatus,item);
-      }else{
+        submitRequest(transStatus, item);
+      } else {
         console.log("cancel")
       }
     });
 
 
-  }
-
-
-  const handleCopy=()=>{
-    setCopy(true)
-    setTimeout(()=>{
-      setCopy(false)
-    },1000)
   }
 
   return (
@@ -131,7 +122,6 @@ console.log(error)
               </thead>
 
               <tbody className="text-white">
-                
                 {allRequest.length > 0 ?
                   allRequest.map((item) => (
                     <tr className=" ">
@@ -141,11 +131,11 @@ console.log(error)
                       <td className=" py-1 hover:bg-black/20">{item.email}</td>
 
                       <td className=" py-1 hover:bg-black/20">
-                        {item.walletAddress.toString().substring(0,4)}..{item.walletAddress.toString().substring(item.walletAddress.length-4,item.walletAddress.length)} 
-                        <CopyToClipboard text={item.walletAddress} > 
-                        <ContentCopyIcon/>
-                      
-                      </CopyToClipboard>
+                        {item.walletAddress.toString().substring(0, 4)}..{item.walletAddress.toString().substring(item.walletAddress.length - 4, item.walletAddress.length)}
+                        <CopyToClipboard text={item.walletAddress} >
+                          <ContentCopyIcon />
+
+                        </CopyToClipboard>
                       </td>
                       <td className=" py-1 hover:bg-black/20">{item.balance}</td>
                       <td className=" py-1 hover:bg-black/20">{item.amount}</td>
@@ -154,21 +144,19 @@ console.log(error)
                           <button
                             className="middle none font-sans font-md center  transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none  sm:text-md 2xl:text-lg text-sm py-2 2xl:py-3 px-3 2xl:px-4  rounded-3xl bg-gradient-to-tr from-red-600 to-red-600 text-white shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/40 active:opacity-[0.85] block w-full"
                             type="button"
-                            onClick={e=>{showPopup(e,"Reject",item)}}
+                            onClick={e => { showPopup(e, "Reject", item) }}
                           >
                             Reject
                           </button>
                           <button
                             className="middle none font-sans font-md center  transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none  sm:text-md 2xl:text-lg text-sm py-2 2xl:py-3 px-3 2xl:px-4  rounded-3xl bg-gradient-to-tr from-green-600 to-green-700 text-white shadow-md shadow-green-500/20 hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] block w-full"
                             type="button"
-                            onClick={e=>{showPopup(e,"Approve",item)}}
+                            onClick={e => { showPopup(e, "Approve", item) }}
 
-                            
+
                           >
                             Accept
                           </button>
-
-                      
                         </div>
                       </td>
                     </tr>
@@ -178,15 +166,14 @@ console.log(error)
                     <td className=" py-1 hover:bg-black/20">
                       No Data{" "}
                     </td>
-                    
+
                   </tr>}
-                
+
               </tbody>
             </table>
           </div>
         </div>
       </div>
- 
     </>
   );
 }
