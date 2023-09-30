@@ -9,6 +9,10 @@ import { Link, Outlet } from "react-router-dom";
 import config from "../../config"
 
 function Dashboard() {
+  var x = localStorage.getItem("token");
+  if (x == null || x == undefined) {
+    window.location.href = `${config.baseUrl}`
+  }
   const [open, SetOpen] = useState(false);
   const [toggle, setToggle] = useState(false);
 

@@ -4,9 +4,16 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import toast, { Toaster } from "react-hot-toast";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Swal from 'sweetalert2';
+import CopyToClipboard from 'react-copy-to-clipboard'
 function Home() {
-  const [allRequest, setAllRequest] = useState([]);
+  var x = localStorage.getItem("token");
+    if (x == null || x == undefined) {
+      window.location.href = `${config.baseUrl}`
+    }
 
+  const [allRequest, setAllRequest] = useState([]);
+  const [copy,setCopy] =useState(false)
   useEffect(() => {
     getAllRequest()
 
@@ -26,7 +33,7 @@ function Home() {
     };
 
     let res = await axios(config1)
-
+console.log(res)
     if (res.response) {
 
     } else {
@@ -35,10 +42,10 @@ function Home() {
     }
   }
 
-  const submitRequest=async(e,transStatus,item)=>{
-    e.preventDefault()
+  const submitRequest=async(transStatus,item)=>{
+    //e.preventDefault()
     try{
-
+   
       let data={"amount":item.amount,"walletAddress":item.wallet , "email":item.email,"transStatus":transStatus,"requestId":item._id}
 
       const config1 = {
@@ -64,8 +71,36 @@ function Home() {
       toast.success( res.data);
     }
     }catch(error){
-
+console.log(error)
     }
+  }
+  const showPopup=(e,transStatus,item)=>{
+    e.preventDefault()
+
+    Swal.fire({
+      title: 'Confirmation',
+      text: 'Are you sure you want to perform this action?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        submitRequest(transStatus,item);
+      }else{
+        console.log("cancel")
+      }
+    });
+
+
+  }
+
+
+  const handleCopy=()=>{
+    setCopy(true)
+    setTimeout(()=>{
+      setCopy(false)
+    },1000)
   }
 
   return (
@@ -96,6 +131,7 @@ function Home() {
               </thead>
 
               <tbody className="text-white">
+                
                 {allRequest.length > 0 ?
                   allRequest.map((item) => (
                     <tr className=" ">
@@ -104,7 +140,13 @@ function Home() {
                       </td>
                       <td className=" py-1 hover:bg-black/20">{item.email}</td>
 
-                      <td className=" py-1 hover:bg-black/20">0xa56g...opkjdfsdsdf <ContentCopyIcon/></td>
+                      <td className=" py-1 hover:bg-black/20">
+                        {item.walletAddress.toString().substring(0,4)}..{item.walletAddress.toString().substring(item.walletAddress.length-4,item.walletAddress.length)} 
+                        <CopyToClipboard text={item.walletAddress} > 
+                        <ContentCopyIcon/>
+                      
+                      </CopyToClipboard>
+                      </td>
                       <td className=" py-1 hover:bg-black/20">{item.balance}</td>
                       <td className=" py-1 hover:bg-black/20">{item.amount}</td>
                       <td className=" py-1  ">
@@ -112,19 +154,21 @@ function Home() {
                           <button
                             className="middle none font-sans font-md center  transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none  sm:text-md 2xl:text-lg text-sm py-2 2xl:py-3 px-3 2xl:px-4  rounded-3xl bg-gradient-to-tr from-red-600 to-red-600 text-white shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/40 active:opacity-[0.85] block w-full"
                             type="button"
-                            onClick={e=>{submitRequest(e,"Reject",item)}}
+                            onClick={e=>{showPopup(e,"Reject",item)}}
                           >
                             Reject
                           </button>
                           <button
                             className="middle none font-sans font-md center  transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none  sm:text-md 2xl:text-lg text-sm py-2 2xl:py-3 px-3 2xl:px-4  rounded-3xl bg-gradient-to-tr from-green-600 to-green-700 text-white shadow-md shadow-green-500/20 hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] block w-full"
                             type="button"
-                            onClick={e=>{submitRequest(e,"Approve",item)}}
+                            onClick={e=>{showPopup(e,"Approve",item)}}
 
                             
                           >
                             Accept
                           </button>
+
+                      
                         </div>
                       </td>
                     </tr>
@@ -142,6 +186,7 @@ function Home() {
           </div>
         </div>
       </div>
+ 
     </>
   );
 }

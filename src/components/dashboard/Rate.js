@@ -6,9 +6,9 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Rate() {
   var x = localStorage.getItem("token");
-  // if (x == null || x == undefined) {
-  //   window.location.href = `${config.baseUrl}`
-  // }
+  if (x == null || x == undefined) {
+    window.location.href = `${config.baseUrl}`
+  }
   const [form, setForm] = useState({ "newRate": '' })
   const [formError, setFromError] = useState({ "newRate": '' })
   const [currentRate,setRate] = useState(0)

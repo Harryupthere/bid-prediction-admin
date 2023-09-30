@@ -25,6 +25,9 @@ function Login() {
   }
 
   const verification=()=>{
+
+  
+
     let emailError='';
     let passwordError='';
     if(form.email.length<=0){
@@ -66,31 +69,31 @@ if(verify){
     data
   );
 
-
+console.log(response,"response")
   if(response.status==200){
     toast.success(response.data.message)
     localStorage.setItem('token',response.data.token);
     localStorage.setItem('userId',response.data.userId);
    localStorage.setItem('email',response.data.email);
    localStorage.setItem('role',response.data.role);
+  localStorage.setItem('ADMIN',true);
     
     setTimeout(() => {
      window.location.href = `${config.baseUrl}Dashboard/home`
   }, 2000);
   }else{
+    
     toast.error(response.response.data.message)
 
   }
 
 
 
-  localStorage.setItem('ADMIN',true);
       
-      setTimeout(() => {
-        window.location.href = `${config.baseUrl}Dashboard/home`
-    }, 2000);
+     
 }
   }catch(error){
+    console.log(error.response.data.message)
     toast.error(error.response.data.message)
 
   }}
@@ -100,6 +103,7 @@ if(verify){
   };
   return (
     <>
+    <Toaster/>
     <div className="bg-center w-screen m-auto px-3 pt-20 pb-12 lg:block xl:px-0 ">
       <div className="lg:grid max-w-7xl mx-auto  grid-cols-1  md:grid-cols-2  flex flex-col flex-col-reverse  PageBG rounded-xl shadow-2xl">
         <div className=" lg:rounded-br-none rounded-br-xl  lg:rounded-tl-xl  rounded-tl-none  rounded-bl-xl py-10 sm:py-12    flex  justify-center items-center flex-col  px-4 sm:px-20  md:px-36  lg:px-12 xl:px-24 bg-transparent ">
