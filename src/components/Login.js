@@ -73,9 +73,10 @@ if(verify){
     localStorage.setItem('userId',response.data.userId);
    localStorage.setItem('email',response.data.email);
    localStorage.setItem('role',response.data.role);
-    
+  localStorage.setItem('ADMIN',true);
+   
     setTimeout(() => {
-     window.location.href = `${config.baseUrl}Dashboard/home`
+      window.location.href = `/admin/dashboard/home`
   }, 2000);
   }else{
     toast.error(response.response.data.message)
@@ -84,11 +85,10 @@ if(verify){
 
 
 
-  localStorage.setItem('ADMIN',true);
       
-      setTimeout(() => {
-        window.location.href = `${config.baseUrl}Dashboard/home`
-    }, 2000);
+    //   setTimeout(() => {
+    //     window.location.href = `${config.baseUrl}Dashboard/home`
+    // }, 2000);
 }
   }catch(error){
     toast.error(error.response.data.message)

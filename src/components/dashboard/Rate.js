@@ -52,7 +52,7 @@ if (res.response) {
 
       const params = new URLSearchParams({ "rate": form.newRate, "role": role }).toString();
      
-      const res = await axios.post(`http://localhost:3000/api/updaterate`, params, {
+      const res = await axios.post(`${config.apiKey}updaterate`, params, {
         headers: {
           'Authorization': `Bearer ${x}`,
           'Content-Type': 'application/x-www-form-urlencoded', // Set the content type

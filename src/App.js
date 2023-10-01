@@ -9,7 +9,7 @@ import Login from "./components/Login";
 import bg1 from './image/image/bg05.png';
 import bg2 from './image/image/bg04.png';
 import bg3 from './image/image/bg3.png';
-
+import config from "./config";
 
 
 
@@ -29,11 +29,10 @@ function App() {
 
     
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="Dashboard" element={<Dashboard />}>
-          <Route path="home" element={<Home />} />
-          <Route path="rate" element={<Rate />} />
-
+      <Route path="/admin/" element={<Login />} />
+        <Route path="/admin/dashboard/" element={<Dashboard />}>
+          <Route path="/admin/dashboard/home" element={<Home />} />
+          <Route path="/admin/dashboard/rate" element={<Rate />} />
         </Route>
       </Routes>
     </Router>

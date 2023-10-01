@@ -44,7 +44,7 @@ function Dashboard() {
           </div>
         </div>
         <div className="h-[95vh]  relative  ">
-          <Link to="/dashboard/home">
+          <Link to="/admin/dashboard/home">
             <div className="flex justify-start items-center p-4  w-full nevs ">
               <HomeIcon className="text-white  cursor-pointer" />
               <h1
@@ -56,7 +56,7 @@ function Dashboard() {
               </h1>
             </div>
           </Link>
-          <Link to="/dashboard/rate">
+          <Link to="/admin/dashboard/rate">
             <div className="flex justify-start items-center p-4  w-full nevs ">
               <AttachMoneyIcon className="text-white  cursor-pointer" />
               <h1
