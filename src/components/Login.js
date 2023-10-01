@@ -76,7 +76,7 @@ if(verify){
   localStorage.setItem('ADMIN',true);
    
     setTimeout(() => {
-      window.location.href = `/admin/dashboard/home`
+      window.location.href = `/admin/home`
   }, 2000);
   }else{
     toast.error(response.response.data.message)

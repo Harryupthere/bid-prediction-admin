@@ -6,7 +6,7 @@ import { BiMoneyWithdraw, BiLogOut } from "react-icons/bi";
 import { MdRealEstateAgent } from "react-icons/md";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import config from "../../config"
+import config from "../config"
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function Dashboard() {
@@ -44,7 +44,7 @@ function Dashboard() {
           </div>
         </div>
         <div className="h-[95vh]  relative  ">
-          <Link to="/admin/dashboard/home">
+          <Link to={`/admin/home`}>
             <div className="flex justify-start items-center p-4  w-full nevs ">
               <HomeIcon className="text-white  cursor-pointer" />
               <h1
@@ -56,7 +56,7 @@ function Dashboard() {
               </h1>
             </div>
           </Link>
-          <Link to="/admin/dashboard/rate">
+          <Link to={`/admin/rate`}>
             <div className="flex justify-start items-center p-4  w-full nevs ">
               <AttachMoneyIcon className="text-white  cursor-pointer" />
               <h1

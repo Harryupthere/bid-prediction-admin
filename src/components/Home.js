@@ -1,11 +1,14 @@
 import React from "react";
-import config from "../../config"
+import config from "../config"
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import toast, { Toaster } from "react-hot-toast";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Swal from 'sweetalert2';
 import CopyToClipboard from 'react-copy-to-clipboard'
+import Dashboard from "./Dashboard";
+import { Link, Outlet } from "react-router-dom";
+
 function Home() {
   var x = localStorage.getItem("token");
   if (x == null || x == undefined) {
@@ -94,12 +97,17 @@ function Home() {
 
   }
 
+
+  const backtodashboard=()=>{
+
+  }
+
   return (
     <>
       <Toaster />
 
       <div className=" w-screen  lg:block xl:px-0  p-4 py-10 overflow-hidden ">
-
+      <Link to={`/admin/Dashboard`}><button style={{color:'white'}}>Back to Dashboard</button></Link>
         <div className="flex justify-start items-start text-center  max-w-8xl    my-3 PageBG rounded-xl shadow-2xl overflow-hidden ">
           <div className=" my-3 overflow-x-auto w-full">
             <h1 className="text-2xl font-bold text-white p-4 w-60 rounded-tr-xl rounded-tl-xl flex justify-center items-center bg-black/50">

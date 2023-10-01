@@ -1,8 +1,10 @@
 import React from "react";
-import config from "../../config";
+import config from "../config";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import toast, { Toaster } from "react-hot-toast";
+import Dashboard from "./Dashboard";
+import { Link, Outlet } from "react-router-dom";
 
 function Rate() {
   var x = localStorage.getItem("token");
@@ -76,7 +78,10 @@ if (res.response) {
   return (
     <>
       <Toaster />
+
+     
       <div className="bg-center w-screen m-auto px-3 pt-20 pb-12 lg:block xl:px-0 ">
+      <Link to={`/admin/Dashboard`}><button style={{color:'white'}}>Back to Dashboard</button></Link>
         <div className="lg:grid max-w-3xl mx-auto  grid-cols-1  md:grid-cols-1 flex flex-col flex-col-reverse  PageBG rounded-xl shadow-2xl">
           <div className=" lg:rounded-br-none rounded-br-xl  lg:rounded-tl-xl  rounded-tl-none  rounded-bl-xl py-10 sm:py-12    flex  justify-center items-center flex-col  px-4 sm:px-20  md:px-36  lg:px-12 xl:px-24 bg-transparent ">
             <div className="  rounded-xl     flex  justify-center items-center flex-col w-full  ">
