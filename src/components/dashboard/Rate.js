@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Rate() {
   var x = localStorage.getItem("token");
+
     if (x == null || x == undefined) {
       window.location.href = `${config.baseUrl}`
     }
@@ -49,34 +50,22 @@ if (res.response) {
     e.preventDefault()
     try {
 
-      let data = { "rate": form.newRate, "role": role }
-
-      const config1 = {
-        method: 'post', // HTTP method (PUT in this case)
-        url: `${config.apiKey}updaterate?role=${role}`,   // The API endpoint
+      const params = new URLSearchParams({ "rate": form.newRate, "role": role }).toString();
+     
+      const res = await axios.post(`http://localhost:3000/api/updaterate`, params, {
         headers: {
-          'Authorization': `Bearer ${x}`, // Set the bearer token in the "Authorization" header
-          'Content-Type': 'application/json', // Set the content type if needed
+          'Authorization': `Bearer ${x}`,
+          'Content-Type': 'application/x-www-form-urlencoded', // Set the content type
         },
-        data: data, // The data you want to send in the request body
-      };
-
-      let res = await axios(config1)
-      // .then(response => {
-      //   // Handle the success response here.
-      //   toast.success( response.data.message);
-      // })
-      // .catch(error => {
-      //   // Handle errors here.
-      //   toast.error(error);
-      // });
+      });
+     
       if (res.response) {
         toast.error(res.response.data.message);
       } else {
         toast.success(res.data);   
-        setTimeout(() => {
-          window.location.reload(true);
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload(true);
+        // }, 2000);
       }
     } catch (error) {
       console.log(error)
